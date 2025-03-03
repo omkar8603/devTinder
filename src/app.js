@@ -4,27 +4,15 @@ const app = express();
 
 
 
-app.get("/user" , (req, res) => {
+app.get("/user/:userId" , (req, res) => {
+    
+    console.log(req.params);
+    console.log(req.query); 
     res.send({firstname : "Omkar",
               lastname : "Mane"
     })
 })
 
-app.post("/user" , (req, res) => {
-    res.send("Data send successfully to database");
-})
-
-
-
-app.delete("/user" , (req, res) => {
-    res.send("Delete sucessful");
-})
-
-
- 
-app.use("/test",(req, res) => {
-     res.send("Hello Form Server");
-})
 
 app.listen(7777, () => {
     console.log("Server is Successfully listning on port 3000...")
