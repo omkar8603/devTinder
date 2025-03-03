@@ -5,3 +5,13 @@
 - Listen to port 7777
 - Write request handelers for /test , /hello
 - Install nodemon and update script  inside  package.json
+
+
+- initialize git
+- .gitignore
+- Create a remote repo on github
+- Push all code to remote origin
+- Play with route and extensition ex . /hello, /xyz
+- Order of route is matter a lot
+- Install Postman app and make a workspace/collection > test API Call
+- Write logic to handle GET, POST, PATCH DELETE API Calls and test them on postman
