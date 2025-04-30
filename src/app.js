@@ -4,16 +4,36 @@ const app = express();
 
 
 
-app.get("/user/:userId" , (req, res) => {
-    
-    console.log(req.params);
-    console.log(req.query); 
-    res.send({firstname : "Omkar",
-              lastname : "Mane"
-    })
+app.use(
+    "/user",
+    (req, res, next) => {
+        console.log("Handling the route user!!");
+        next()
+        // res.send("Responce!!");
+       
+    },
+    (req, res, next) => {
+        console.log("Handling the route user 2");
+        // res.send("2nd Responce");
+        next();
+    },
+    (req, res, next) => {
+        console.log("Handling the route user 2");
+        // res.send("2nd Responce");
+        next();
+    },
+    (req, res, next) => {
+        console.log("Handling the route user 2");
+        // res.send("2nd Responce");
+        next()
+    }
+)
+
+app.get("/user", (req,res) => {
+    console.log("next responce")
+    res.send("next Responce");
 })
 
-
 app.listen(7777, () => {
-    console.log("Server is Successfully listning on port 3000...")
+    console.log("Server is Successfully listning on port 7777...")
 })
