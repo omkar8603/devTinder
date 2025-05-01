@@ -1,37 +1,24 @@
 const express = require("express");
-
+const {adminAuth, userAuth}= require('./middlewares/auth');
 const app = express();
 
 
+app.use('/admin', adminAuth);  
+// app.use('/user', userAuth);
 
-app.use(
-    "/user",
-    (req, res, next) => {
-        console.log("Handling the route user!!");
-        next()
-        // res.send("Responce!!");
-       
-    },
-    (req, res, next) => {
-        console.log("Handling the route user 2");
-        // res.send("2nd Responce");
-        next();
-    },
-    (req, res, next) => {
-        console.log("Handling the route user 2");
-        // res.send("2nd Responce");
-        next();
-    },
-    (req, res, next) => {
-        console.log("Handling the route user 2");
-        // res.send("2nd Responce");
-        next()
-    }
-)
+app.get("/admin/getAllData", (req, res) => {
+    
+    res.send("All  Data sent");
 
-app.get("/user", (req,res) => {
-    console.log("next responce")
-    res.send("next Responce");
+})
+
+app.get("/admin/deleteUser", (req, res) => {
+    res.send("Delete a user");
+})
+
+app.get("/user/user1", userAuth, (req, res) => {
+    console.log("i am user 1")
+    res.send("I am User1")
 })
 
 app.listen(7777, () => {
