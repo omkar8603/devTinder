@@ -26,4 +26,4 @@
 - what is a Middleware? Why do we need it?
 - How express JS Basically handles requests bihand the scence
 - Difference between app.use and app.all
-    
+- Error Handling Using app.use('/', (err, req, res, next) => {});
