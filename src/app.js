@@ -58,10 +58,74 @@ app.get('/feed', async (req, res) => {
 })
 
 
+// find the user by its id
+app.get('/user/:userId', async (req, res) => {
+    const {userId} = req.params;
+v
+    try {
+        
+     const user = await User.findById(userId);
+     if (!user){
+        res.status(404).send("user does not find")
+     } else {
+        res.status(200).send({user : user});
+     }
+        
+    } catch (error) {
+        console.error(error);
+        res.status(400).send("User does not find")
+    }
+})
 
 
+// delete any user
+
+app.delete('/user', async (req, res) => {
+    const userId = req.body.userId;
+
+    try {
+        const deletedUser = await User.findByIdAndDelete(userId);
+        console.log("delete user successfully"); 
+        res.status(200).send({deletedUser : deletedUser})
+    }  catch (error) {
+        console.error(error);
+        res.status(400).send("User does not find")
+    }
+})
 
 
+// update the user
+
+app.patch('/user', async (req, res) => {
+    const {userId, ...updates}= req.body;
+
+    try {
+        const updateData = await User.findByIdAndUpdate(userId,
+            updates,  
+        )
+        console.log("updated data ", updateData);
+        res.status(200).send({updateData : updateData})
+    } catch (error) {
+        console.error(error);
+        res.status(400).send("User does not find")
+    }
+})
+
+
+// update use with email
+
+app.patch("/user/:emailId", async (req, res) => {
+    const {emailId} = req.params;
+    const updates = req.body;
+    try {
+        const updatedData = await User.findOneAndUpdate({email : emailId}, updates)
+        console.log("updating with email sucessfull");
+        res.status(200).send({updatedData : updatedData})
+    } catch (error) {
+        console.error(error);
+        res.status(400).send("User does not find")
+    }
+})
 connectDB()
     .then(() => {
     console.log("Database Connection established...")
@@ -74,4 +138,6 @@ connectDB()
     })
 
 
+
+   
 

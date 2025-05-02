@@ -22,7 +22,7 @@
 - Multiple Route Handlers - Play with the code
 - next()
 - next Function and errors along with res.send()
-- app.use('/routes', rH1,rH2, [rH3, rH3], rH4, rH5);
+<!-- - app.use('/routes', rH1,rH2, [rH3, rH3], rH4, rH5); -->
 - what is a Middleware? Why do we need it?
 - How express JS Basically handles requests bihand the scence
 - Difference between app.use and app.all
@@ -42,4 +42,9 @@
  - Make your signup API dynamic to receive data from the end  user
  - API - Get user by email'
  - API - Feed API - GET /feed - get all the users from the database
-   
+- API - find the user by ID
+- Create a delete user API
+- Create a update user data API
+- Explore Mongoose Documentation for model methods
+- What are options in a Model.findOneAndUpdate method, explore more about it
+- API - Update the user with email ID
