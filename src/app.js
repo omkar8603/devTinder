@@ -1,31 +1,47 @@
 const express = require("express");
 const {adminAuth, userAuth}= require('./middlewares/auth');
 const app = express();
+const connectDB = require('./config/database');
+const User = require('./models/user');
 
 
-app.get("/getUserData", (req, res) => {
-    
+
+app.post("/signup", async (req, res) => {
     try {
-        console.log("before error");
-        throw new Error("iesf");
-        res.send("User data sent");
-        console.log("after affer")
+        const user = new User({
+            firstName : "dhoni",
+            lastName : "Kohali",
+            email : "ViratKohali@gmail.com",
+            password : "213423",
+           
+        })
+
+       const responce =  await user.save();
+       res.status(200).send({responce : responce})
+        
     } catch (error) {
-        res.status(500).send("Some Error Contact support team")
-    }
-   
-         
-})
- 
- 
 
-app.use('/', (err, req, res, next) => {
-    if (err){
-        res.status(500).send("something went wrong");
+        console.error(error);
+        res.status(400).send("Error Saving the User")
     }
 })
 
-app.listen(7777, () => {
-    console.log("Server is Successfully listning on port 7777...")
-})
+
+
+
+
+
+
+connectDB()
+    .then(() => {
+    console.log("Database Connection established...")
+    app.listen(7777, () => {
+        console.log("Server is Successfully listning on port 7777...")
+    })
+    })
+    .catch((err) => {
+        console.log("Database is not connected!!", err);
+    })
+
+
 
