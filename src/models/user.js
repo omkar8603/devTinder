@@ -3,25 +3,58 @@ const mongoose = require('mongoose');
 
 const userSchema = new   mongoose.Schema({
     firstName : {
-        type : String
+        type : String,
+        required : true,
+        minlength : 4 ,
+        maxlength : 40 
     },
     lastName : {
-        type : String
+        type : String,
+        minlength : 4 ,
+        maxlength : 40 
     },
     email : {
-        type : String
+        type : String,
+        lowercase : true,
+        required : true,
+        unique : true,
+        trim : true,
+        minlength : 10 ,
+        maxlength : 40 
     },
-    password : {
-        type : String
-    },
+    password : { 
+        type : String,
+        required : true,
+        minlength : 4 ,
+        maxlength : 40 
+    }, 
     age : {
-        type : Number
+        type : Number,
+        min : 18,
+        minlength : 4 ,
+        maxlength : 40 
+    },          
+    gender: {
+       type: String,
+         enum: ['male', 'female', 'others'],
+     }
+,
+    photoUrl : {
+        type : String,
+        default : "https://media.istockphoto.com/id/1016744004/vector/profile-placeholder-image-gray-silhouette-no-photo.jpg?s=2048x2048&w=is&k=20&c=Bd6iDyKyMT7thqxegIgyFAkAJ70RFcuzlM3m0tGBovg="
     },
-    gender : {
-        type : String
+    about :  {
+        type : String,
+        default : "this is about the default of user!!",
+        minlength : 4 ,
+        maxlength : 100 
+    },
+    skills : {
+        type : [String]
     }
-})
+} , {timestamps : true})
 
 const User = mongoose.model("User", userSchema);
+User.init();
 
 module.exports = User

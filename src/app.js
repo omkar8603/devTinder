@@ -18,7 +18,7 @@ app.post("/signup", async (req, res) => {
     } catch (error) {
 
         console.error(error);
-        res.status(400).send("Error Saving the User")
+        res.status(400).send({"Error Saving the User" : error.message})
     }
 })
 
@@ -94,21 +94,36 @@ app.delete('/user', async (req, res) => {
 })
 
 
+app.delete("/delete-all-users", async (req, res) => {
+    try {
+        const result = await User.deleteMany({});
+        res.status(200).send({ message: "All users deleted", deletedCount: result.deletedCount });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ error: "Failed to delete users" });
+    }
+});
+
+
+
 // update the user
 
 app.patch('/user', async (req, res) => {
     const {userId, ...updates}= req.body;
-
+    console.log(req.body)
+    console.log(userId);
     try {
         const updateData = await User.findByIdAndUpdate(userId,
-            updates,  
+            updates, {
+                runValidators : true
+            } 
         )
         console.log("updated data ", updateData);
         res.status(200).send({updateData : updateData})
     } catch (error) {
         console.error(error);
-        res.status(400).send("User does not find")
-    }
+        res.status(400).send({"Update Fails" : error.message})
+    } 
 })
 
 
