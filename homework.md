@@ -53,3 +53,7 @@
 - create a custume validation functiom for gender
 - Improve the DB schema - PUT all  appropiate validation on each field i schema
 - Add timestamps to the userSchema
+- Add API level validation on patch request and signup post api
+- Data Sanitizing - add api validation for each field
+- Install validator
+- Explore validator library function and Use validator function for password, email, photoUrl

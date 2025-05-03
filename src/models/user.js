@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const validator = require('validator');
+
 
 
 const userSchema = new   mongoose.Schema({
@@ -20,13 +22,23 @@ const userSchema = new   mongoose.Schema({
         unique : true,
         trim : true,
         minlength : 10 ,
-        maxlength : 40 
+        maxlength : 40,
+        validate(value){
+            if(!validator.isEmail(value)){
+                throw new Error('Invalid email address: ' + value)
+            }
+        }
     },
     password : { 
         type : String,
         required : true,
         minlength : 4 ,
-        maxlength : 40 
+        maxlength : 40 ,
+        validate(value){
+            if (!validator.isStrongPassword(value)){
+                throw new Error ("Enter the strong password : " + value);
+            }
+        }
     }, 
     age : {
         type : Number,
@@ -41,7 +53,12 @@ const userSchema = new   mongoose.Schema({
 ,
     photoUrl : {
         type : String,
-        default : "https://media.istockphoto.com/id/1016744004/vector/profile-placeholder-image-gray-silhouette-no-photo.jpg?s=2048x2048&w=is&k=20&c=Bd6iDyKyMT7thqxegIgyFAkAJ70RFcuzlM3m0tGBovg="
+        default : "https://media.istockphoto.com/id/1016744004/vector/profile-placeholder-image-gray-silhouette-no-photo.jpg?s=2048x2048&w=is&k=20&c=Bd6iDyKyMT7thqxegIgyFAkAJ70RFcuzlM3m0tGBovg=",
+        validate(value){
+            if (!validator.isURL(value)){
+                throw new Error ("Invalid Photo URL: " + value);
+            }
+        }
     },
     about :  {
         type : String,
@@ -50,7 +67,8 @@ const userSchema = new   mongoose.Schema({
         maxlength : 100 
     },
     skills : {
-        type : [String]
+        type : [String],
+        validate: [arr => arr.length <= 10, 'Maximum 10 skills allowed']
     }
 } , {timestamps : true})
 

@@ -110,9 +110,20 @@ app.delete("/delete-all-users", async (req, res) => {
 
 app.patch('/user', async (req, res) => {
     const {userId, ...updates}= req.body;
-    console.log(req.body)
-    console.log(userId);
+    
+    
     try {
+
+        const ALLOWED_UPDATES = ["userId", "photoUrl", "about", "gender", "age", "skills"]
+    
+        const isUpdateAllowed = Object.keys(updates).every((k) => 
+                  ALLOWED_UPDATES.includes(k)
+      );
+        
+        if(!isUpdateAllowed){
+            throw new Error("Updates not allowed");
+        }
+
         const updateData = await User.findByIdAndUpdate(userId,
             updates, {
                 runValidators : true
@@ -122,7 +133,7 @@ app.patch('/user', async (req, res) => {
         res.status(200).send({updateData : updateData})
     } catch (error) {
         console.error(error);
-        res.status(400).send({"Update Fails" : error.message})
+        res.status(400).send({"Update Fails " : error.message})
     } 
 })
 
@@ -133,6 +144,17 @@ app.patch("/user/:emailId", async (req, res) => {
     const {emailId} = req.params;
     const updates = req.body;
     try {
+
+        const ALLOWED_UPDATES = ["userId", "photoUrl", "about", "gender", "age", "skills"]
+    
+        const isUpdateAllowed = Object.keys(updates).every((k) => 
+                  ALLOWED_UPDATES.includes(k)
+      );
+        
+        if(!isUpdateAllowed){
+            throw new Error("Updates not allowed");
+        }
+
         const updatedData = await User.findOneAndUpdate({email : emailId}, updates)
         console.log("updating with email sucessfull");
         res.status(200).send({updatedData : updatedData})
