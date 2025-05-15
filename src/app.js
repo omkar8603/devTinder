@@ -4,14 +4,33 @@ const app = express();
 const connectDB = require('./config/database');
 const User = require('./models/user');
 app.use(express.json());
-
+const { validationSignUpData } = require('./utils/validation')
+const bcrypt = require('bcrypt')
+const validator = require('validator')
 
 app.post("/signup", async (req, res) => {
    
-    // creating the instance of the model
-    const user = new User(req.body);
+   
     try {
+
+         const {firstName, lastName, email, password} = req.body;
        
+        // Validation of data
+        validationSignUpData(req);
+
+
+        // Encrypt the password
+        const passwordHash = await  bcrypt.hash(password, 10);
+       
+
+    // creating the instance of the model
+       const user = new User({
+        firstName,
+        lastName,
+        email,
+        password : passwordHash
+       });
+
        const responce =  await user.save();
        res.status(200).send({responce : responce})
         
@@ -22,7 +41,39 @@ app.post("/signup", async (req, res) => {
     }
 })
 
+app.post('/login', async(req, res) => {
+    try {
+        
+       const { emailId, password } = req.body;
+
+       if(!validator.isEmail(emailId)){
+        console.log('email not valid')
+         throw new Error('enter valid email');
+       }
+
+        const user = await User.findOne({ email: emailId });
+
+        if (!user) {
+            throw new Error("Invalid Credentials");
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+
+        if (isMatch) {
+            return res.status(200).send("Login Successful !!!");
+        } else {
+            throw new Error("Invalid Credentials");
+        }
+
+    } catch (error) {
+        console.error(error);
+       res.status(400).send("Error: " + error.message);
+    }
+})
+
  
+
+
 app.get('/user', async (req, res) => {
     const emailId = req.body.email;
     
@@ -163,6 +214,11 @@ app.patch("/user/:emailId", async (req, res) => {
         res.status(400).send("User does not find")
     }
 })
+
+
+
+
+
 connectDB()
     .then(() => {
     console.log("Database Connection established...")
