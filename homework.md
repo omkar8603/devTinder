@@ -78,3 +78,12 @@
 - Set the expite of JWT token to & days  
 - create Schema method to getJwt()
 - Create UserSchema method to comparePassword(passwordInpu tByUser)
+
+
+- Explore Tinder APIs
+- Create a List of all API you can think of in DevTinder
+- Group multiple routes under repactive routers
+- Read document for express router
+- Create Routes for managing auth, profile, request routers
+- Create authRouter, profileRouter, requestRouter
+- Import these routers in app.js
