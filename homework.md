@@ -48,7 +48,7 @@
 - Explore Mongoose Documentation for model methods
 - What are options in a Model.findOneAndUpdate method, explore more about it
 - API - Update the user with email ID             
-- add rewuried, unique, lowercase, min/max length, trim
+- add requried, unique, lowercase, min/max length, trim
 - add default
 - create a custume validation functiom for gender
 - Improve the DB schema - PUT all  appropiate validation on each field i schema
@@ -91,3 +91,17 @@
 - Create PATCH /Profile/edit
 - Create PATCH /profile/password API => forgot password
 - Make You validate all data in every POST, PATCH APIs
+
+
+
+- Create Connection Request Schema
+- Send Connection Request API
+- Proper Validation of Data
+- Think about ALL Corner Cases
+- $or and $and query in mongoose 
+- schema.pre('save') function
+- Read more about indexes in MongoDB
+- Why do we need indexes in DB?
+- What is the advantages and disadvantages of Creating index in DB ? 
+- Read Article about compoud indexes on MongoDB Website
+- ALWAYS THINK ABOUT CONER CASES
