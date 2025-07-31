@@ -105,3 +105,9 @@
 - What is the advantages and disadvantages of Creating index in DB ? 
 - Read Article about compoud indexes on MongoDB Website
 - ALWAYS THINK ABOUT CONER CASES
+
+- Write code with proper validation for POST /request/review/:status/:requestId
+- Thought process - GET vs POST
+- Read about ref and populate
+- Create GET /user/requests/received with all the checks
+- Create GET /user/connections

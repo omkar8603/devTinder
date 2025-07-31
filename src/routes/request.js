@@ -58,5 +58,38 @@ requestRouter.post('/request/send/:status/:userId', userAuth, async (req, res) =
 
 })
 
+requestRouter.post('/request/review/:status/:requestId', userAuth, async (req, res) => {
+    try {
+        const {status, requestId} = req.params;
+        const allowedStatuses = ['accepted', 'rejected'];
+        if (!allowedStatuses.includes(status)){
+            throw new Error('Invalid status: ' + status + ' - must be either "accepted" or "rejected"');
+        }
+
+    
+        const request = await ConnectionRequest.findOne({
+            _id : requestId,
+            status: 'interested'
+        });
+
+        if (!request){
+            throw new Error('Connection request not found !!');
+        }
+        
+        if (request.toUserId.toString() !== req.user._id.toString()){
+            throw new Error('You are not authorized to review this request');
+        }
+
+        request.status = status;
+        const updatedRequest = await request.save();
+
+        res.status(200).send({message: `${req.user.firstName} ${status} the connection request`,
+                             updatedRequest})
+
+    } catch (error) {
+        res.status(400).send("ERROR: " + error.message);
+    }
+})
+
 
 module.exports = requestRouter;
