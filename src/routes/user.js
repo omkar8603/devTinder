@@ -4,7 +4,6 @@ const userRouter = express.Router();
 const {userAuth} = require('../middlewares/auth')
 const ConnectionRequest = require('../models/connectionRequest');
 
-
 const USER_SAFE_DATA = 'firstName lastName photoUrl age  gender about skills'
 
 // Get all the pending connection request for the loggedInUser
@@ -63,6 +62,51 @@ userRouter.get('/user/connections', userAuth, async (req, res) => {
     }
 })
 
- 
+ // Get feed of other users
+userRouter.get('/user/feed', userAuth, async (req, res) => { 
+    try {
+       
 
-module.exports = userRouter;
+        const loggedInUser =  req.user;
+        
+        const page = Math.max(1, parseInt(req.query.page) || 1);
+        const MAX_LIMIT = 10;
+        const limit = Math.min(Math.max(1, parseInt(req.query.limit) || 20), MAX_LIMIT);
+        const skip = (page - 1) * limit;
+
+        const loggedInUserConnections = await ConnectionRequest.find({
+            $or : [
+                { fromUserId: loggedInUser._id },
+                { toUserId: loggedInUser._id, }
+            ]
+        }).select('fromUserId toUserId');
+        
+            
+        const loggedInUserConnectionIds = loggedInUserConnections.map(connection => { 
+            return connection.fromUserId.equals(loggedInUser._id) ? connection.toUserId : connection.fromUserId;
+        })
+
+        
+        const users = await User.find({
+            _id: { $nin: [...loggedInUserConnectionIds, loggedInUser._id] },
+            
+        })
+        .select(USER_SAFE_DATA)
+        .skip(skip)
+        .limit(limit)
+
+        if (users.length === 0) {
+            return res.status(200).send({ message: "No users found" });
+        }
+
+        return res.status(200).json({
+            message: "Users Found",
+            totalUsers: users.length,
+            users
+        })
+    } catch (error) {
+        return res.status(400).send("ERROR: " + error.message);
+    }
+})
+
+module.exports = userRouter; 
