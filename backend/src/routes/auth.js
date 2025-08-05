@@ -60,7 +60,7 @@ authRouter.post('/login', async(req, res) => {
                 secure: true
             });
 
-            return res.status(200).send("Login Successful !!!");
+            return res.status(200).json({user : user});
             
         } 
         else {
@@ -69,7 +69,7 @@ authRouter.post('/login', async(req, res) => {
 
     } catch (error) {
         console.error(error);
-       res.status(400).send("Error: " + error.message);
+       res.status(400).json({Error : error.message} );
     }
 })
 
