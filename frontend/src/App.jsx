@@ -1,15 +1,17 @@
-import Body from "./Body"
-import Login from "./Login"
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Profile from "./Profile"
-import LandingPage from "./LandingPage"
-import Feed from './Feed'
-
+import Body from "./component/Body"
+import Login from "./component/Login"
+import { BrowserRouter, Routes, Route, } from 'react-router-dom'
+import Profile from "./component/Profile"
+import LandingPage from "./component/LandingPage"
+import Feed from './component/Feed'
+import { Provider } from 'react-redux';
+import appStore from "./utils/appStore"
 
 function App() {
 
   return (
     <>
+    <Provider store={appStore}>
        <BrowserRouter basename='/'>
         <Routes>
           <Route path='/' element={<LandingPage/>}  />
@@ -23,6 +25,8 @@ function App() {
         </Routes>
       
        </BrowserRouter>
+
+       </Provider>
       
    </>
   )

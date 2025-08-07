@@ -2,30 +2,35 @@
 import React ,{  useState}from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
+import { BASE_URL } from "../utils/constant";
 
 const Login = () => {
 
   const [emailId, setEmailId] = useState("omkar@gmail.com");
   const [password, setPassword] = useState("Pass@123");
   const [error, setError] = useState("");
+  const dispatch = useDispatch();
   const navigate = useNavigate();
  
   const handleLogin = async (e) => {
     e.preventDefault();
     if (!emailId || !password) {
       setError("Please fill in all fields");
-      return;
+      return;    
     }
     setError(""); // Clear any previous error
 
     try {
-      const res = await axios.post("http://localhost:7777/login", {
+      const res = await axios.post(BASE_URL + "/login", {
         emailId : emailId,
         password : password
-      }, {withCredentials : true})
+      }, 
+      {withCredentials : true})
 
-      console.log("login : ", res)
-      navigate('/feed  ');
+      dispatch(addUser(res?.data));
+      navigate('/feed');
 
     } catch (error) {
        console.log("error : ", error);
