@@ -20,7 +20,9 @@
 - Login and see if your data is comming properly in the store
 - Navbar should update as soon as user login in
 - Refactor our code to add constants fire + create a component folder
-
+- You should not be access other routes without login
+- if token is not present, redirect user to login page
+- Profile page
 
 
 

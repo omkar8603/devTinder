@@ -11,7 +11,7 @@ const Feed = () => {
           
     try {
         // const feed = await axios.get('http://localhost:7777/user/feed')
-        console.log("feed ", feed);
+        // console.log("feed ", feed);
 
     } catch (error) {
       console.log(error)

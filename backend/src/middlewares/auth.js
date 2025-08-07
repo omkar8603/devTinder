@@ -11,8 +11,8 @@ const userAuth = async (req, res, next) => {
         // Validate the token
 
         if (!token) {
-            throw new Error ("Unauthorized: No token provided");
-        }
+          return  res.status(401).send("Please Login!")  
+              }
 
         // Verify the token
         const decodedObj = await jwt.verify(token, "DEV@Tinder$790");
