@@ -22,6 +22,7 @@
 - Refactor our code to add constants fire + create a component folder
 - You should not be access other routes without login
 - if token is not present, redirect user to login page
+- Logout Feature
 - Profile page
 
 

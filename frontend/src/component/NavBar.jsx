@@ -15,16 +15,17 @@ const navigate = useNavigate();
 const handleLogout = async (e) => {
   e.preventDefault();
   try {
-    await axios.post(BASE_URL + "/logout", null ,  {
+     await axios.post(BASE_URL + "/logout", null ,  {
       withCredentials : true
     })
     dispatch(removeUser())
-    navigate('/')
+    return  navigate('/')
 
     console.log("logout successfully")
     
   } catch (error) {
-    
+    // Error logic may redirect to error page
+    console.log(error)
   }
 }
   
@@ -32,7 +33,7 @@ const handleLogout = async (e) => {
   return (
   <div className="navbar bg-white shadow-md px-4 py-2 sticky top-0 z-50">
     <div className="flex-1">
-      <Link to='/feed  ' className="btn btn-ghost normal-case text-2xl font-bold text-pink-600 hover:bg-transparent">
+      <Link to='/feed' className="btn btn-ghost normal-case text-2xl font-bold text-pink-600 hover:bg-transparent">
         🧑‍💻 DevTinder
       </Link>
     </div>

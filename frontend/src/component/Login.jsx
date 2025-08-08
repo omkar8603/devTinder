@@ -34,6 +34,7 @@ const Login = () => {
 
     } catch (error) {
        console.log("error : ", error);
+       setError("Error : " + error?.response?.data?.Error);
     }
      
   }
@@ -69,12 +70,16 @@ const Login = () => {
               className="w-full text-black px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
             />
           </div>
+           
+           {/* Error message */}
 
+           <p className="font-bold text-red-500">{error}</p>
+          
           {/* Login Button */}
           <button
             type="submit"
             onClick={handleLogin}
-            className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all duration-300"
+            className="w-full  bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white py-2 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all duration-300"
           >
             Login
           </button>
