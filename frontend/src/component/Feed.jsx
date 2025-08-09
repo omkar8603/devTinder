@@ -40,7 +40,7 @@ const Feed = () => {
   return feed && (
     <div className='h-screen w-screen flex items-center justify-center bg-gradient-to-br from-purple-100 via-pink-100 to-indigo-100 animate-gradient'>
       <div >
-        <UserCart feed={feed}/>
+        <UserCart user={feed[0]}/>
       </div>
     </div>
   )

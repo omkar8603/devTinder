@@ -5,6 +5,9 @@ const {allowedProfileToEditData, validateProfileEditData} = require('../utils/va
 const validator = require('validator')
 
 
+
+
+
 profileRouter.get('/profile/view', userAuth, async (req, res) => {
    
     try {
@@ -22,7 +25,7 @@ profileRouter.get('/profile/view', userAuth, async (req, res) => {
 })  
 
 
-profileRouter.patch('/profile/edit', userAuth, async (req, res) => {
+profileRouter.put('/profile/edit', userAuth, async (req, res) => {
     try {
         if(!allowedProfileToEditData(req)){
             throw new Error ("Invalid Edit Request")

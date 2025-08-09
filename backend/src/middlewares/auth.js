@@ -5,6 +5,10 @@ const userAuth = async (req, res, next) => {
    
     try {
 
+        if (req.method === 'OPTIONS') {
+           return res.sendStatus(200);
+          }
+
         // taking the token from the cookies
         const { token } = req.cookies;
 
