@@ -70,8 +70,13 @@ const handleLogout = async (e) => {
     </Link>
   </li>
   <li>
-    <Link to="/settings" className="hover:bg-pink-50 rounded-md text-sm text-gray-800">
-      Settings
+    <Link to="/connections" className="hover:bg-pink-50 rounded-md text-sm text-gray-800">
+      Connections
+    </Link>
+  </li>
+   <li>
+    <Link to="/requests" className="hover:bg-pink-50 rounded-md text-sm text-gray-800">
+      Requests
     </Link>
   </li>
   <li>

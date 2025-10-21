@@ -15,6 +15,7 @@ const Feed = () => {
    useEffect(() => {
     if (user === null) {
       // navigate("/login");
+      
     }
     getUserFeed();
   }, [user, navigate]);

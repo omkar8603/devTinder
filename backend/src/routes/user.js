@@ -10,6 +10,7 @@ const USER_SAFE_DATA = 'firstName lastName photoUrl age  gender about skills'
 userRouter.get('/user/request/received', userAuth, async (req, res) => {
     try {
         const loggedInUserId = req.user._id;
+       
         const receivedRequests = await ConnectionRequest.find({
        
            toUserId : loggedInUserId,
@@ -42,15 +43,17 @@ userRouter.get('/user/connections', userAuth, async (req, res) => {
         }).populate('fromUserId', USER_SAFE_DATA   )
         .populate('toUserId', USER_SAFE_DATA);
 
+
         const data = connections.map((connection) => {
             return connection.fromUserId._id.equals(loggedInUser._id)
                 ? connection.toUserId
                 : connection.fromUserId;
         });
-
-        if (data.length === 0) {
+        
+        if (data.length === 0 || !data) {
             return res.status(200).send({ message: "No connections found" });
         }
+
 
        return res.status(200).send({
             message : "Conneections found",
@@ -108,5 +111,23 @@ userRouter.get('/user/feed', userAuth, async (req, res) => {
         return res.status(400).send("ERROR: " + error.message);
     }
 })
+
+
+// just for testing
+
+userRouter.get('/user/find/:reqId', async (req, res) => {
+    try {
+        const id = req.params.reqId;
+
+        const data = await User.findById(id)
+
+        res.send(data);
+
+    } catch (error) {
+        console.log("error : ", error);
+    }
+})
+
+
 
 module.exports = userRouter; 

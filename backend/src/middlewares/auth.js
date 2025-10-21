@@ -15,7 +15,7 @@ const userAuth = async (req, res, next) => {
         // Validate the token
 
         if (!token) {
-          return  yres.status(401).send("Please Login!")  
+          return  res.status(401).send("Please Login!")  
               }
 
         // Verify the token

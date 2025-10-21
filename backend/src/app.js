@@ -29,12 +29,6 @@ app.use('/', userRouter);
 
 
 
- 
-
-           
-
-
-
 connectDB()
     .then(() => {
     console.log("Database Connection established...")

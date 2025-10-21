@@ -21,7 +21,6 @@ const EditProfile = ({data}) => {
   const [showToast, setShowToast] = useState(false);
 
 
-  console.log("first Name ", firstName);
   // Pre-fill user data
   useEffect(() => {
     if (user) {
@@ -54,6 +53,7 @@ const EditProfile = ({data}) => {
 
     try {
       const res = await axios.put(BASE_URL + '/profile/edit',
+
         {
           firstName,
           lastName,
@@ -72,6 +72,8 @@ const EditProfile = ({data}) => {
       setTimeout(() => {
         setShowToast(false);
       }, 3000);
+
+      console.log(res);
 
       setSuccessMsg('Profile updated successfully!');
     } catch (err) {
@@ -143,7 +145,7 @@ const EditProfile = ({data}) => {
             <label className="block text-sm font-medium text-gray-600 mb-1">Gender</label>
             <select
               value={gender}
-              onChange={(e) => setGender(e.target.value)}
+              onChange={(e) => setGender(e.target.value.toLowerCase())}
               className="w-full px-3 py-2 text-sm text-black border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
             >
               <option value="">Select gender</option>

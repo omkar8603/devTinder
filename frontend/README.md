@@ -26,7 +26,9 @@
 - Get the feed add the feed in the store
 - build the user card on feed
 - build profile view and profile update feature
-
+- Show Toast Message on save profile 
+- See All My Connections
+- See all My request
 
 
 Body 
