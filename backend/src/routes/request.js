@@ -12,7 +12,6 @@ requestRouter.post('/request/send/:status/:userId', userAuth, async (req, res) =
         const toUserId = req.params.userId;
         const status = req.params.status;
 
-        console.log(status);
 
         if (!['interested', 'ignored'].includes(status)) {
             throw new Error(`Invalid status : ${status} - must be either 'interested' or 'ignored'`);
@@ -59,6 +58,7 @@ requestRouter.post('/request/send/:status/:userId', userAuth, async (req, res) =
 
 
 })
+
 
 requestRouter.post('/request/review/:status/:requestId', userAuth, async (req, res) => {
     try {

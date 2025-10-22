@@ -14,28 +14,37 @@ const Requests = () => {
         withCredentials: true,
       });
 
-      console.log(res);
-      dispatch(addRequests(res.data.receivedRequests));
+       dispatch(addRequests(res.data.receivedRequests));
     } catch (error) {
       console.error("Error fetching requests:", error);
     }
   };
 
   const handleAccept = async (id) => {
-    try {
-      await axios.post(BASE_URL + `/request/accept/${id}`, {}, { withCredentials: true });
-      dispatch(removeRequest(id));
-    } catch (err) {
-      console.error(err);
-    }
+     try {
+        const res = await axios.post(BASE_URL + "/request/review/accepted/" + id, {},
+          {
+            withCredentials : true
+          }
+        )
+
+        dispatch(removeRequest(id));
+     } catch (error) {
+        console.log(error);
+     }
   };
 
   const handleReject = async (id) => {
     try {
-      await axios.post(BASE_URL + `/request/reject/${id}`, {}, { withCredentials: true });
-      dispatch(removeRequest(id));
-    } catch (err) {
-      console.error(err);
+       const res = await axios.post(BASE_URL + "/request/review/rejected/" + id, {},
+          {
+            withCredentials : true
+          }
+        )
+        dispatch(removeRequest(id));
+
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -43,7 +52,7 @@ const Requests = () => {
     fetchRequests();
   }, []);
 
-  if (!requests.length) {
+  if (!requests.length  || !requests[0]?.fromUserId?.firstName) {
     return (
       <div className="h-screen w-screen flex flex-col justify-center items-center bg-gradient-to-br from-purple-100 via-pink-100 to-indigo-100">
         <h1 className="text-pink-600 font-bold text-2xl mb-2">No Requests Received 😅</h1>
@@ -60,7 +69,7 @@ const Requests = () => {
         {requests.map((req) => (
           <div key={req._id} className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center hover:shadow-2xl hover:-translate-y-1 transition-transform duration-300">
             <img
-              src={req.fromUserId.photoUrl || "/default-avatar.png"}
+              src={req?.fromUserId?.photoUrl || "/default-avatar.png"}
               alt={req.fromUserId.firstName}
               className="w-24 h-24 rounded-full mb-4 object-cover border-4 border-pink-300"
             />

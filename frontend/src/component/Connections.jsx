@@ -24,7 +24,6 @@ const Connections = () => {
     fetchConnections();
   }, []);
 
-  console.log(connections)
 
   if (!connections || connections.length === 0 || connections[0]?._id == null) {
     return (

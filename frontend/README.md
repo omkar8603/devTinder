@@ -27,8 +27,9 @@
 - build the user card on feed
 - build profile view and profile update feature
 - Show Toast Message on save profile 
-- See All My Connections
-- See all My request
+- new Page - See All My Connections
+- new Page - See all My request
+- Feature - Accept/Reject Connection Request
 
 
 Body 

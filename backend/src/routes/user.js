@@ -56,7 +56,7 @@ userRouter.get('/user/connections', userAuth, async (req, res) => {
 
 
        return res.status(200).send({
-            message : "Conneections found",
+            message : "Connections found",
             connections : data
         })
         
