@@ -36,7 +36,12 @@ const Feed = () => {
       console.log(error)
     }
   }
-
+   
+  if (!feed || feed.length <= 0) {
+      return <div className='h-screen text-2xl w-screen flex  justify-center bg-gradient-to-br from-purple-100 via-pink-100 to-indigo-100 animate-gradient'>
+        <h1 className='mt-20 text-red-400'>No New user found !!</h1>
+      </div>
+  } 
   // getUserFeed();
   return feed && (
     <div className='h-screen w-screen flex items-center justify-center bg-gradient-to-br from-purple-100 via-pink-100 to-indigo-100 animate-gradient'>

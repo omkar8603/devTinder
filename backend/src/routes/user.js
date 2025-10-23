@@ -36,19 +36,23 @@ userRouter.get('/user/connections', userAuth, async (req, res) => {
         const loggedInUser = req.user;
 
         const connections = await ConnectionRequest.find({
-            $or: [
+            
+                 $or: [
                 { fromUserId : loggedInUser._id, status : 'accepted'},
                 { toUserId : loggedInUser._id, status : 'accepted' }
-            ]
+                ]
+     
         }).populate('fromUserId', USER_SAFE_DATA   )
         .populate('toUserId', USER_SAFE_DATA);
 
 
         const data = connections.map((connection) => {
+             if (!connection.fromUserId || !connection.toUserId) return null;
             return connection.fromUserId._id.equals(loggedInUser._id)
                 ? connection.toUserId
                 : connection.fromUserId;
-        });
+        })
+        .filter((user) => user !== null);
         
         if (data.length === 0 || !data) {
             return res.status(200).send({ message: "No connections found" });

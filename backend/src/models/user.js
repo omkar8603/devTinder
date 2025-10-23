@@ -9,13 +9,13 @@ const userSchema = new mongoose.Schema({
     firstName : {
         type : String,
         required : true,
-        minlength : 4 ,
+        minlength : 2 ,
         maxlength : 40 ,
         trim : true
     },
     lastName : {
         type : String,
-        minlength : 4 ,
+        minlength : 2 ,
         maxlength : 40 
     },
     email : {
@@ -72,6 +72,10 @@ const userSchema = new mongoose.Schema({
     skills : {
         type : [String],
         validate: [arr => arr.length <= 10, 'Maximum 10 skills allowed']
+    },
+    ifProfileCompleted : {
+        type : Boolean,
+        default : false
     }
 } , {timestamps : true})
 

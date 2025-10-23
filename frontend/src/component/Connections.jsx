@@ -25,7 +25,7 @@ const Connections = () => {
   }, []);
 
 
-  if (!connections || connections.length === 0 || connections[0]?._id == null) {
+  if (!connections || connections.length === 0) {
     return (
       <div className="h-screen w-screen flex flex-col justify-center items-center bg-gradient-to-br from-purple-100 via-pink-100 to-indigo-100">
         <h1 className="font-bold text-pink-600 text-2xl mb-2">

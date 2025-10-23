@@ -30,6 +30,9 @@
 - new Page - See All My Connections
 - new Page - See all My request
 - Feature - Accept/Reject Connection Request
+- Send/Ignore the user card from the feed
+- Signup New user
+- E2E testing
 
 
 Body 

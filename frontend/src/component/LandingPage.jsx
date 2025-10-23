@@ -1,5 +1,6 @@
 // LandingPage.jsx
 import React from "react";
+import { Link } from "react-router-dom";
 
 const LandingPage = () => {
   return (
@@ -32,15 +33,15 @@ const LandingPage = () => {
           Connect with developers based on skills, goals, and passion. Build the future together.
         </p>
         <div className="mt-6 space-x-4">
-          <a
-            href="/register"
+          <Link
+            to="/login"
             className="bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 shadow-lg transition-all"
           >
             Get Started
-          </a>
-          <a href="/login" className="text-purple-700 font-medium hover:underline">
+          </Link>
+          <Link to="/login" className="text-purple-700 font-medium hover:underline">
             Already have an account?
-          </a>
+          </Link>
         </div>
       </main>
 

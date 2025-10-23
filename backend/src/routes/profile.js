@@ -2,7 +2,8 @@ const express = require('express');
 const profileRouter = express.Router();
 const { userAuth } = require('../middlewares/auth');
 const {allowedProfileToEditData, validateProfileEditData} = require('../utils/validation')
-const validator = require('validator')
+const validator = require('validator');
+const User = require('../models/user');
 
 
 
@@ -36,6 +37,8 @@ profileRouter.put('/profile/edit', userAuth, async (req, res) => {
         const loggedInUser = req.user;
         Object.keys(req.body).forEach((key) => (loggedInUser[key] = req.body[key]));
         
+        loggedInUser.ifProfileCompleted = true;
+
         await loggedInUser.save();
         res.status(200).json({ message : `${loggedInUser.firstName} your profile updated successfully `,
                                data : loggedInUser
